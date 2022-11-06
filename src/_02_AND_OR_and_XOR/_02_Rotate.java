@@ -30,6 +30,9 @@ public class _02_Rotate {
     
     int rotateLeft(int value, int rotateAmount) {
     	String x = Integer.toBinaryString(value);
+    	while(x.length() != 32) {
+    		x = "0" + x;
+    	}
     	for(int i = 0; i < rotateAmount; i++) {
     		char init = x.charAt(0);
     		x = x.substring(1);
@@ -40,14 +43,39 @@ public class _02_Rotate {
     			x += "0";
     		}
     	}
-        return value;
+    	
+    	int a = 1;
+    	int result = 0;
+    	for(int i = x.length() - 1; i >= 0; i--) {
+    		result += (a * Integer.parseInt("" + x.charAt(i)));
+    		a = a * 2;
+    	}
+        return result;
     }
     
     int rotateRight(int value, int rotateAmount) {
-    	for(int i = 0; i < rotateAmount; i++) {
-    		value = value >> 1;
+    	String x = Integer.toBinaryString(value);
+    	while(x.length() != 32) {
+    		x = "0"  + x;
     	}
-        return value;
+    	for(int i = 0; i < rotateAmount; i++) {
+    		char init = x.charAt(x.length( ) - 1);
+    		x = x.substring(0, x.length() - 1);
+    		if(init == '1') {
+    			x = "1" + x;
+    		}
+    		else {
+    			x = "0" + x;
+    		}
+    	}
+    	
+    	int a = 1;
+    	int result = 0;
+    	for(int i = x.length() - 1; i >= 0; i--) {
+    		result += (a * Integer.parseInt("" + x.charAt(i)));
+    		a = a * 2;
+    	}
+        return result;
     }
     
     @Test

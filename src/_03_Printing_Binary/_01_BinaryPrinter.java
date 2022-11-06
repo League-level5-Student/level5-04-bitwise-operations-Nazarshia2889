@@ -15,6 +15,12 @@ public class _01_BinaryPrinter {
 
         // Use the & operator to "mask" the bit in the one's place
         // This can be done by "anding" (&) it with the value of 1
+    	
+    	for(int i = 7; i >= 0; i--) {
+	    	byte x = (byte) (b >> i);
+	    	x = (byte) (b & 1);
+	    	System.out.print(x);
+    	}
 
         // Print the result using System.out.print (NOT System.out.println)
 
@@ -23,6 +29,8 @@ public class _01_BinaryPrinter {
 
     public void printShortBinary(short s) {
         // Create 2 byte variables
+    	byte a;
+    	byte b;
 
         // Use bit shifting and masking (&) to save the first
         // 8 bits of s in one byte, and the second 8 bits of
@@ -49,5 +57,8 @@ public class _01_BinaryPrinter {
 
     public static void main(String[] args) {
         // Test your methods here
+    	byte b = (byte) 0b00111111;
+    	_01_BinaryPrinter bp = new _01_BinaryPrinter();
+    	bp.printByteBinary(b);
     }
 }
