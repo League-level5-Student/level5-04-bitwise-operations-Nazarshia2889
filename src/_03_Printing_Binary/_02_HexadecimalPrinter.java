@@ -68,31 +68,34 @@ public class _02_HexadecimalPrinter implements ActionListener {
     	}
  
     	 do {
-    		 System.out.println(x / 16);
-    		 if((x / 16) != 0) {
-    			 x = x / 16;
-    			 result += x;
+    		 int rem = x % 16;
+    		 if(rem >= 10) {
+    			 result += characters[rem - 10];
     		 }
     		 else {
-    			 int remainder = x % 16;
-    			 x = x / 16;
-    			 if(remainder >= 10) {
-    				 result += characters[remainder - 10];
-    			 }
-    			 else {
-    				 result += remainder;
-    			 }
-    			 
+    			 result += rem;
     		 }
-             System.out.println(x);
+    		 x = x / 16;
              
          } while( x != 0);
-    	
-        return result;
+    	 
+    	 StringBuilder builder = new StringBuilder(result);
+    	 
+     	StringBuilder newResult = builder.reverse();
+        return newResult.toString();
     }
     
     String binaryToDec(String binaryStr) {
-        return "-";
+    	int count = 1;
+    	int result = 0;
+    	char[] binaryArr = binaryStr.toCharArray();
+    	for(int i = binaryStr.length()-1; i >= 0; i--) {
+    		if(binaryArr[i] == '1') {
+    			result += count;
+    		}
+    		count = count * 2;
+    	}
+        return "" + result;
     }
 
     /*
@@ -102,8 +105,9 @@ public class _02_HexadecimalPrinter implements ActionListener {
         if (binaryStr.length() != 8) {
             return "-";
         }
-
-        return "-";
+        int dec = Integer.parseInt(binaryToDec(binaryStr));
+        char c = (char) dec;
+        return c + "";
     }
     
     public static void main(String[] args) {
