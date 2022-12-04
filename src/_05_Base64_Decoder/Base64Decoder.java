@@ -56,14 +56,59 @@ public class Base64Decoder {
     //1. Complete this method so that it returns the index in
     //   the base64Chars array that corresponds to the passed in char.
     public static byte convertBase64Char(char c){
-        return 0;
+    	for(int i = 0; i < base64Chars.length; i++) {
+    		if(c == base64Chars[i]) {
+    			return (byte) i;
+    		}
+    	}
+        return -1;
     }
 
     //2. Complete this method so that it will take in a string that is 4
     //   characters long and return an array of 3 bytes (24 bits). The byte
     //   array should be the binary value of the encoded characters.
     public static byte[] convert4CharsTo24Bits(String s){
-        return null;
+    	String[] initialBytes = new String[4];
+    	byte[] resultBytes = new byte[3];
+    	
+    	char[] characters = s.toCharArray();
+    	for(int i = 0; i < characters.length; i++) {
+    		int index = convertBase64Char(characters[i]);
+    		String binaryStr = "";
+
+            do {
+                int quotient = index >>> 1;
+                
+                if( index % 2 != 0 ){
+                    binaryStr = '1' + binaryStr;
+                } else {
+                    binaryStr = '0' + binaryStr;
+                }
+
+                index = quotient;
+
+            } while( index != 0 );
+            
+            while(binaryStr.length() < 8) {
+            	binaryStr = "0" + binaryStr;
+            }
+            
+            
+            initialBytes[i] = binaryStr;
+            System.out.println(initialBytes[0]);
+        	System.out.println(initialBytes[1]);
+        	System.out.println(initialBytes[2]);
+            
+    	}
+    	resultBytes[0] = (byte) Integer.parseInt(initialBytes[0].substring(2) + initialBytes[1].substring(2, 4), 2);
+    	resultBytes[1] = (byte) Integer.parseInt(initialBytes[1].substring(4) + initialBytes[2].substring(2, 7), 2);
+    	resultBytes[2] = (byte) Integer.parseInt(initialBytes[2].substring(6) + initialBytes[2].substring(2), 2);
+    	
+    	System.out.println(resultBytes[0]);
+    	System.out.println(resultBytes[1]);
+    	System.out.println(resultBytes[2]);
+    	
+        return resultBytes;
     }
 
     //3. Complete this method so that it takes in a string of any length
