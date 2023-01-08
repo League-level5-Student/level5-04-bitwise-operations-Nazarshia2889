@@ -107,16 +107,13 @@ public class Base64Decoder {
     		}
     		if(currIndex == 0) { 
     			resultBytes[j] = (byte) ((initialBytes[i] << 2) + (initialBytes[i+1] >> 4));
-    			System.out.println(i);
     		}
     		else if(currIndex == 1) {
     			resultBytes[j] = (byte) ((initialBytes[i] << 4) + (initialBytes[i+1] >> 2));
-    			System.out.println(i);
     		}
     		else if(currIndex == 2) {
     			resultBytes[j] = (byte) ((initialBytes[i] << 6) + (initialBytes[i+1]));
     			flagged = true;
-    			System.out.println(i);
     		}
     		currIndex++;
     		currIndex = currIndex % 3;
